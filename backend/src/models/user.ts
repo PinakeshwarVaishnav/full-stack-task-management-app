@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { hash, compare } from "bcrypt";
+import { hash } from "bcrypt";
 
 interface UserInterface {
   username: string;
@@ -30,12 +30,5 @@ UserSchema.pre("save", async function (next) {
     return next(error as Error);
   }
 });
-
-UserSchema.methods.comparePassword = async function (
-  candidatePassword: string,
-) {
-  console.log("comparing password");
-  return compare(candidatePassword, this.password);
-};
 
 export const User = mongoose.model<UserInterface>("User", UserSchema);

@@ -1,7 +1,8 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import registerRouter from "./routes/auth/register";
+import loginRouter from "./routes/auth/login";
 
 dotenv.config();
 const app = express();
@@ -23,6 +24,7 @@ mongoose
   );
 
 app.use("/user", registerRouter);
+app.use("/user", loginRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
