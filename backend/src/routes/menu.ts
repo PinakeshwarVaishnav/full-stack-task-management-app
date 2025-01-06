@@ -113,4 +113,25 @@ router.put("/:id", async (req: Request, res: Response) => {
   }
 });
 
+router.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const itemId = req.params.id;
+
+    const deletionResult = await Menu.deleteOne({ _id: itemId });
+
+    if (deletionResult.deletedCount !== 1) {
+      return res.status(404).json({ error: "menu item not found" });
+    }
+
+    res.status(200).json({
+      message: "menu item deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "error while deleting menu item",
+      err,
+    });
+  }
+});
+
 export default router;
